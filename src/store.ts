@@ -66,7 +66,7 @@ export interface Settings {
   accent: 'orange' | 'blue' | 'green' | 'pink' | 'purple';
 }
 
-const DEFAULTS: Settings = { volume: 1, muted: false, shuffle: false, repeat: 'off', playlistOpen: false, theme: 'auto', accent: 'orange' };
+const DEFAULTS: Settings = { volume: 1, muted: false, shuffle: false, repeat: 'off', playlistOpen: false, theme: 'oled', accent: 'orange' };
 
 export function loadSettings(): Settings {
   try {

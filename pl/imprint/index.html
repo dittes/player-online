@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl">
+<html lang="pl" data-theme="oled">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -25,13 +25,16 @@
 <body>
 <div class="page">
   <header class="top">
-    <a class="brand" href="/pl/"><img src="/icons/icon-192.png" alt="" width="32" height="32"><span>Player Online</span></a>
+    <a class="brand" href="/pl/"><svg class="logo" viewBox="0 0 192 192" aria-hidden="true"><rect width="192" height="192" rx="42" fill="var(--panel-2)"/><path d="M57 46v100l85-50z" fill="var(--accent)"/></svg><span>Player Online</span></a>
+    <div class="menuwrap">
+      <button class="iconbtn" id="btn-about" type="button" aria-haspopup="menu" aria-expanded="false" title="Informacje, kolory, język" aria-label="Informacje, kolory, język"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg></button>
+      <div class="menu topmenu" id="menu-about" role="menu" hidden></div>
+    </div>
   </header>
   <main class="legal">
     <h1>Impressum</h1>
 <h2>Dane zgodnie z § 5 DDG (niemiecka ustawa o usługach cyfrowych)</h2><address>Player-Online.com<br>c/o Andreas Dittes<br>Bautzener Str. 35<br>10829 Berlin<br>Niemcy</address>
 <h2>Kontakt</h2><p>E-mail: <a href="mailto:player-online@dittes.info">player-online@dittes.info</a></p>
-<h2>Odpowiedzialny za treść wg § 18 ust. 2 MStV</h2><p>Andreas Dittes, adres jak wyżej.</p>
 <h2>Pozasądowe rozstrzyganie sporów konsumenckich</h2><p>Nie jesteśmy gotowi ani zobowiązani do udziału w postępowaniu przed konsumenckim organem rozstrzygającym spory.</p>
 <h2>Odpowiedzialność za treści</h2><p>Jako usługodawca odpowiadamy za własne treści zgodnie z przepisami ogólnymi (§ 7 ust. 1 DDG). Zgodnie z §§ 8–10 DDG nie mamy obowiązku monitorowania przekazywanych lub przechowywanych informacji osób trzecich. Po dowiedzeniu się o naruszeniu niezwłocznie usuniemy daną treść. Pliki, które odtwarzasz, przetwarza wyłącznie Twoja przeglądarka; nie otrzymujemy ich i nie mamy o nich wiedzy.</p>
 <h2>Odpowiedzialność za linki</h2><p>Strona zawiera linki do zewnętrznych witryn osób trzecich (np. biuno.com, open-online.com), na których treść nie mamy wpływu. Nie ponosimy za nią odpowiedzialności; odpowiada zawsze dany dostawca.</p>
@@ -49,6 +52,6 @@
     <nav class="langs" aria-label="Język"><a href="/en/" hreflang="en" lang="en">English</a><a href="/de/" hreflang="de" lang="de">Deutsch</a><a href="/pl/" hreflang="pl" lang="pl" aria-current="page">Polski</a><a href="/cs/" hreflang="cs" lang="cs">Čeština</a></nav>
   </footer>
 </div>
-<link rel="stylesheet" href="/src/launcher.css">
+<script type="module" src="/src/page.ts"></script>
 </body>
 </html>

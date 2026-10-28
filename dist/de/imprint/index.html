@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-theme="oled">
 <head>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; media-src 'self' blob: https: http:; connect-src 'self' blob: https: http:; font-src 'self'; worker-src 'self' blob:; manifest-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
   <meta charset="utf-8">
@@ -22,18 +22,23 @@
   <link rel="icon" type="image/png" href="/icons/icon-192.png">
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
   <meta name="robots" content="noindex, follow">
-  <link rel="stylesheet" crossorigin href="/assets/launcher-DpqsnV90.css">
+  <script type="module" crossorigin src="/assets/aboutmenu-CLce18jH.js"></script>
+  <script type="module" crossorigin src="/assets/page-D_ZTCMgS.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/page-CtI9wwIL.css">
 </head>
 <body>
 <div class="page">
   <header class="top">
-    <a class="brand" href="/de/"><img src="/icons/icon-192.png" alt="" width="32" height="32"><span>Player Online</span></a>
+    <a class="brand" href="/de/"><svg class="logo" viewBox="0 0 192 192" aria-hidden="true"><rect width="192" height="192" rx="42" fill="var(--panel-2)"/><path d="M57 46v100l85-50z" fill="var(--accent)"/></svg><span>Player Online</span></a>
+    <div class="menuwrap">
+      <button class="iconbtn" id="btn-about" type="button" aria-haspopup="menu" aria-expanded="false" title="Info, Farben, Sprache" aria-label="Info, Farben, Sprache"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg></button>
+      <div class="menu topmenu" id="menu-about" role="menu" hidden></div>
+    </div>
   </header>
   <main class="legal">
     <h1>Impressum</h1>
 <h2>Angaben gemäß § 5 DDG</h2><address>Player-Online.com<br>c/o Andreas Dittes<br>Bautzener Str. 35<br>10829 Berlin<br>Deutschland</address>
 <h2>Kontakt</h2><p>E-Mail: <a href="mailto:player-online@dittes.info">player-online@dittes.info</a></p>
-<h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2><p>Andreas Dittes, Anschrift wie oben.</p>
 <h2>Verbraucherstreitbeilegung</h2><p>Wir sind weder bereit noch verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
 <h2>Haftung für Inhalte</h2><p>Als Diensteanbieter sind wir nach § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach den §§ 8 bis 10 DDG sind wir jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen. Bei Bekanntwerden von Rechtsverletzungen entfernen wir entsprechende Inhalte umgehend. Dateien, die Sie abspielen, verarbeitet ausschließlich Ihr Browser; wir erhalten sie nicht und haben keine Kenntnis von ihnen.</p>
 <h2>Haftung für Links</h2><p>Diese Seiten enthalten Links zu externen Websites Dritter (z. B. biuno.com, open-online.com), auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte übernehmen wir keine Gewähr; verantwortlich ist stets der jeweilige Anbieter.</p>

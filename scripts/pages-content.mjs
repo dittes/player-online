@@ -23,6 +23,7 @@ export const T = {
     msgOther: 'This file type is not supported here. Try a video or audio file.',
     aboutH: 'Free online player – no upload, no account',
     about: 'Player Online plays MP4, WebM, MKV, MOV, AVI, WMV, FLV, MPEG, MP3, FLAC, WAV, OGG, M4A and many more formats directly in your browser, including subtitles, playlists, an equalizer and network streams (HLS, DASH). Your files stay on your device.',
+    about_menu: 'Info, colours, language',
     imprint: 'Imprint & privacy', local: 'Your files never leave your device.', language: 'Language',
     video: { title: 'Play Video Online – Player Online', desc: 'Play video online for free: MP4, MKV, AVI, MOV, WMV, FLV and more, with subtitles and playlists. No upload, no account – your file stays on your device.', h1: 'Play Video Online', intro: 'Drop video files or a folder here, or open them from your device. Everything plays inside this page – nothing is uploaded.', seo: 'Play video online: MP4, WebM, MKV, MOV, AVI, WMV, FLV, MPEG and TS files play in your browser with subtitles (SRT, ASS, VTT), audio track selection, playlists and picture-in-picture. Free, without upload.' },
     music: { title: 'Play Music Online – Player Online', desc: 'Play music online for free: MP3, FLAC, WAV, OGG, M4A, WMA and more, with equalizer and visualizer. No upload, no account – your files stay on your device.', h1: 'Play Music Online', intro: 'Drop music files or a folder here, or open them from your device. Everything plays inside this page – nothing is uploaded.', seo: 'Play music online: MP3, FLAC, WAV, OGG, Opus, M4A, AAC and WMA files play in your browser with a 10-band equalizer, spectrum visualizer, playlists and shuffle. Free, without upload.' },
@@ -44,6 +45,7 @@ export const T = {
     msgOther: 'Dieser Dateityp wird hier nicht unterstützt. Versuchen Sie es mit einer Video- oder Audiodatei.',
     aboutH: 'Kostenloser Online-Player – ohne Upload, ohne Konto',
     about: 'Player Online spielt MP4, WebM, MKV, MOV, AVI, WMV, FLV, MPEG, MP3, FLAC, WAV, OGG, M4A und viele weitere Formate direkt im Browser ab – mit Untertiteln, Wiedergabelisten, Equalizer und Netzwerk-Streams (HLS, DASH). Ihre Dateien bleiben auf Ihrem Gerät.',
+    about_menu: 'Info, Farben, Sprache',
     imprint: 'Impressum & Datenschutz', local: 'Ihre Dateien verlassen nie Ihr Gerät.', language: 'Sprache',
     video: { title: 'Video online abspielen – Player Online', desc: 'Video online kostenlos abspielen: MP4, MKV, AVI, MOV, WMV, FLV und mehr, mit Untertiteln und Wiedergabeliste. Kein Upload, kein Konto – die Datei bleibt auf Ihrem Gerät.', h1: 'Video online abspielen', intro: 'Videodateien oder einen Ordner hierher ziehen oder vom Gerät öffnen. Alles wird direkt auf dieser Seite abgespielt – nichts wird hochgeladen.', seo: 'Video online abspielen: MP4-, WebM-, MKV-, MOV-, AVI-, WMV-, FLV-, MPEG- und TS-Dateien laufen im Browser – mit Untertiteln (SRT, ASS, VTT), Tonspurauswahl, Wiedergabelisten und Bild-in-Bild. Kostenlos und ohne Upload.' },
     music: { title: 'Musik online abspielen – Player Online', desc: 'Musik online kostenlos abspielen: MP3, FLAC, WAV, OGG, M4A, WMA und mehr, mit Equalizer und Visualizer. Kein Upload, kein Konto – die Dateien bleiben auf Ihrem Gerät.', h1: 'Musik online abspielen', intro: 'Musikdateien oder einen Ordner hierher ziehen oder vom Gerät öffnen. Alles wird direkt auf dieser Seite abgespielt – nichts wird hochgeladen.', seo: 'Musik online abspielen: MP3-, FLAC-, WAV-, OGG-, Opus-, M4A-, AAC- und WMA-Dateien laufen im Browser – mit 10-Band-Equalizer, Spektrum-Visualizer, Wiedergabelisten und Zufallswiedergabe. Kostenlos und ohne Upload.' },
@@ -65,6 +67,7 @@ export const T = {
     msgOther: 'Ten typ pliku nie jest tutaj obsługiwany. Spróbuj z plikiem wideo lub audio.',
     aboutH: 'Darmowy odtwarzacz online – bez przesyłania, bez konta',
     about: 'Player Online odtwarza MP4, WebM, MKV, MOV, AVI, WMV, FLV, MPEG, MP3, FLAC, WAV, OGG, M4A i wiele innych formatów bezpośrednio w przeglądarce – z napisami, listami odtwarzania, korektorem i strumieniami sieciowymi (HLS, DASH). Twoje pliki zostają na urządzeniu.',
+    about_menu: 'Informacje, kolory, język',
     imprint: 'Impressum i prywatność', local: 'Twoje pliki nigdy nie opuszczają urządzenia.', language: 'Język',
     video: { title: 'Odtwarzaj wideo online – Player Online', desc: 'Odtwarzaj wideo online za darmo: MP4, MKV, AVI, MOV, WMV, FLV i inne, z napisami i listą odtwarzania. Bez przesyłania i konta – plik zostaje na urządzeniu.', h1: 'Odtwarzaj wideo online', intro: 'Upuść tutaj pliki wideo lub folder albo otwórz je z urządzenia. Wszystko odtwarza się na tej stronie – nic nie jest przesyłane.', seo: 'Odtwarzaj wideo online: pliki MP4, WebM, MKV, MOV, AVI, WMV, FLV, MPEG i TS działają w przeglądarce – z napisami (SRT, ASS, VTT), wyborem ścieżki dźwiękowej, listami odtwarzania i obrazem w obrazie. Za darmo, bez przesyłania.' },
     music: { title: 'Odtwarzaj muzykę online – Player Online', desc: 'Odtwarzaj muzykę online za darmo: MP3, FLAC, WAV, OGG, M4A, WMA i inne, z korektorem i wizualizacją. Bez przesyłania i konta – pliki zostają na urządzeniu.', h1: 'Odtwarzaj muzykę online', intro: 'Upuść tutaj pliki muzyczne lub folder albo otwórz je z urządzenia. Wszystko odtwarza się na tej stronie – nic nie jest przesyłane.', seo: 'Odtwarzaj muzykę online: pliki MP3, FLAC, WAV, OGG, Opus, M4A, AAC i WMA działają w przeglądarce – z 10-pasmowym korektorem, wizualizacją widma, listami odtwarzania i odtwarzaniem losowym. Za darmo, bez przesyłania.' },
@@ -86,6 +89,7 @@ export const T = {
     msgOther: 'Tento typ souboru zde není podporován. Zkuste video nebo zvukový soubor.',
     aboutH: 'Bezplatný online přehrávač – bez nahrávání, bez účtu',
     about: 'Player Online přehrává MP4, WebM, MKV, MOV, AVI, WMV, FLV, MPEG, MP3, FLAC, WAV, OGG, M4A a mnoho dalších formátů přímo v prohlížeči – s titulky, seznamy skladeb, ekvalizérem a síťovými streamy (HLS, DASH). Vaše soubory zůstávají v zařízení.',
+    about_menu: 'Informace, barvy, jazyk',
     imprint: 'Impressum a soukromí', local: 'Vaše soubory nikdy neopustí zařízení.', language: 'Jazyk',
     video: { title: 'Přehrávejte video online – Player Online', desc: 'Přehrávejte video online zdarma: MP4, MKV, AVI, MOV, WMV, FLV a další, s titulky a seznamem skladeb. Bez nahrávání a účtu – soubor zůstává v zařízení.', h1: 'Přehrávejte video online', intro: 'Přetáhněte sem videosoubory nebo složku, nebo je otevřete ze zařízení. Vše se přehrává přímo na této stránce – nic se nenahrává.', seo: 'Přehrávejte video online: soubory MP4, WebM, MKV, MOV, AVI, WMV, FLV, MPEG a TS běží v prohlížeči – s titulky (SRT, ASS, VTT), výběrem zvukové stopy, seznamy skladeb a obrazem v obraze. Zdarma, bez nahrávání.' },
     music: { title: 'Přehrávejte hudbu online – Player Online', desc: 'Přehrávejte hudbu online zdarma: MP3, FLAC, WAV, OGG, M4A, WMA a další, s ekvalizérem a vizualizací. Bez nahrávání a účtu – soubory zůstávají v zařízení.', h1: 'Přehrávejte hudbu online', intro: 'Přetáhněte sem hudební soubory nebo složku, nebo je otevřete ze zařízení. Vše se přehrává přímo na této stránce – nic se nenahrává.', seo: 'Přehrávejte hudbu online: soubory MP3, FLAC, WAV, OGG, Opus, M4A, AAC a WMA běží v prohlížeči – s 10pásmovým ekvalizérem, vizualizací spektra, seznamy skladeb a náhodným přehráváním. Zdarma, bez nahrávání.' },
@@ -100,7 +104,6 @@ export const IMPRINT = {
   de: { title: 'Impressum & Datenschutz – Player Online', h1: 'Impressum', body: () => `
 <h2>Angaben gemäß § 5 DDG</h2>${addr('de')}
 <h2>Kontakt</h2><p>E-Mail: ${mail}</p>
-<h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2><p>${OPERATOR.person}, Anschrift wie oben.</p>
 <h2>Verbraucherstreitbeilegung</h2><p>Wir sind weder bereit noch verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
 <h2>Haftung für Inhalte</h2><p>Als Diensteanbieter sind wir nach § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach den §§ 8 bis 10 DDG sind wir jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen. Bei Bekanntwerden von Rechtsverletzungen entfernen wir entsprechende Inhalte umgehend. Dateien, die Sie abspielen, verarbeitet ausschließlich Ihr Browser; wir erhalten sie nicht und haben keine Kenntnis von ihnen.</p>
 <h2>Haftung für Links</h2><p>Diese Seiten enthalten Links zu externen Websites Dritter (z. B. biuno.com, open-online.com), auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte übernehmen wir keine Gewähr; verantwortlich ist stets der jeweilige Anbieter.</p>
@@ -114,7 +117,6 @@ export const IMPRINT = {
   en: { title: 'Imprint & Privacy – Player Online', h1: 'Imprint', body: () => `
 <h2>Information pursuant to § 5 DDG (German Digital Services Act)</h2>${addr('en')}
 <h2>Contact</h2><p>Email: ${mail}</p>
-<h2>Responsible for content under § 18(2) MStV</h2><p>${OPERATOR.person}, address as above.</p>
 <h2>Consumer dispute resolution</h2><p>We are neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board.</p>
 <h2>Liability for content</h2><p>As a service provider we are responsible for our own content under general law (§ 7(1) DDG). Under §§ 8–10 DDG we are not obliged to monitor transmitted or stored third-party information. Once we become aware of an infringement we will remove the content promptly. Files you play are processed only by your browser; we do not receive them and have no knowledge of them.</p>
 <h2>Liability for links</h2><p>This site links to external third-party websites (e.g. biuno.com, open-online.com) whose content we cannot influence. We accept no liability for it; the respective provider is always responsible.</p>
@@ -128,7 +130,6 @@ export const IMPRINT = {
   pl: { title: 'Impressum i prywatność – Player Online', h1: 'Impressum', body: () => `
 <h2>Dane zgodnie z § 5 DDG (niemiecka ustawa o usługach cyfrowych)</h2>${addr('pl')}
 <h2>Kontakt</h2><p>E-mail: ${mail}</p>
-<h2>Odpowiedzialny za treść wg § 18 ust. 2 MStV</h2><p>${OPERATOR.person}, adres jak wyżej.</p>
 <h2>Pozasądowe rozstrzyganie sporów konsumenckich</h2><p>Nie jesteśmy gotowi ani zobowiązani do udziału w postępowaniu przed konsumenckim organem rozstrzygającym spory.</p>
 <h2>Odpowiedzialność za treści</h2><p>Jako usługodawca odpowiadamy za własne treści zgodnie z przepisami ogólnymi (§ 7 ust. 1 DDG). Zgodnie z §§ 8–10 DDG nie mamy obowiązku monitorowania przekazywanych lub przechowywanych informacji osób trzecich. Po dowiedzeniu się o naruszeniu niezwłocznie usuniemy daną treść. Pliki, które odtwarzasz, przetwarza wyłącznie Twoja przeglądarka; nie otrzymujemy ich i nie mamy o nich wiedzy.</p>
 <h2>Odpowiedzialność za linki</h2><p>Strona zawiera linki do zewnętrznych witryn osób trzecich (np. biuno.com, open-online.com), na których treść nie mamy wpływu. Nie ponosimy za nią odpowiedzialności; odpowiada zawsze dany dostawca.</p>
@@ -142,7 +143,6 @@ export const IMPRINT = {
   cs: { title: 'Impressum a soukromí – Player Online', h1: 'Impressum', body: () => `
 <h2>Údaje podle § 5 DDG (německý zákon o digitálních službách)</h2>${addr('cs')}
 <h2>Kontakt</h2><p>E-mail: ${mail}</p>
-<h2>Odpovědný za obsah dle § 18 odst. 2 MStV</h2><p>${OPERATOR.person}, adresa viz výše.</p>
 <h2>Mimosoudní řešení spotřebitelských sporů</h2><p>Nejsme ochotni ani povinni účastnit se řízení před spotřebitelským rozhodčím orgánem.</p>
 <h2>Odpovědnost za obsah</h2><p>Jako poskytovatel služby odpovídáme za vlastní obsah podle obecných právních předpisů (§ 7 odst. 1 DDG). Podle §§ 8–10 DDG nejsme povinni sledovat přenášené nebo uložené informace třetích stran. Jakmile se o porušení práv dozvíme, obsah neprodleně odstraníme. Soubory, které přehráváte, zpracovává výhradně váš prohlížeč; nedostáváme je a nemáme o nich žádné informace.</p>
 <h2>Odpovědnost za odkazy</h2><p>Stránky obsahují odkazy na externí weby třetích stran (např. biuno.com, open-online.com), jejichž obsah nemůžeme ovlivnit. Za něj neneseme odpovědnost; vždy odpovídá příslušný provozovatel.</p>

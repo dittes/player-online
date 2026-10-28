@@ -7,6 +7,7 @@ import { extractSubtitles } from './engine/probe';
 import { cuesAt, isSubtitleName, parseSubtitles, renderCueText, type SubtitleTrack } from './subtitles';
 import { applyVideo, ASPECTS, defaultVideo, type Aspect } from './engine/vfx';
 import { EQ_FREQS, EQ_PRESETS, type FxSettings } from './engine/fx';
+import { appendAboutSections, applyTheme } from './aboutmenu';
 import { getBookmarks, getResume, loadSettings, saveResume, saveSettings, setBookmarks, type Bookmark } from './store';
 
 // ------------------------------------------------------------------ helpers
@@ -25,7 +26,7 @@ const fmt = (t: number) => {
 };
 const fmtSize = (n: number) => (n > 1e9 ? `${(n / 1e9).toFixed(2)} GB` : n > 1e6 ? `${(n / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1e3))} KB`);
 const baseName = (n: string) => n.replace(/\.[^.]+$/, '');
-const MEDIA_EXT = /\.(mp4|m4v|mov|qt|3gp|3g2|webm|mkv|mka|avi|wmv|asf|flv|f4v|mpg|mpeg|mpe|vob|ts|m2ts|mts|m2t|ogv|mp3|m4a|m4b|aac|flac|wav|ogg|oga|opus|wma|weba|aiff?|ac3|dts)$/i;
+const MEDIA_EXT = /\.(mp4|m4v|mov|qt|3gp|3g2|webm|mkv|mka|avi|wmv|asf|flv|f4v|mpg|mpeg|mpe|m1v|m2v|divx|vob|ts|m2ts|mts|m2t|ogv|ogm|ogx|mp2|mp3|mpga|m4a|m4b|m4r|aac|flac|wav|ogg|oga|opus|spx|wma|weba|aiff?|caf|amr|tta|ac3|dts)$/i;
 const isMedia = (f: File) => f.type.startsWith('video/') || f.type.startsWith('audio/') || MEDIA_EXT.test(f.name);
 const isSub = (f: File) => isSubtitleName(f.name);
 const ENGINE_LABEL: Record<Engine, string> = {
@@ -335,7 +336,7 @@ function stepSpeed(dir: 1 | -1) {
 // menus
 const menus = ['menu-speed', 'menu-subs', 'menu-audio', 'menu-chap', 'menu-quality'];
 const MENU_OPENER: Record<string, string> = {
-  'menu-speed': 'b-speed', 'menu-subs': 'b-subs', 'menu-audio': 'b-audio', 'menu-chap': 'b-chap', 'menu-quality': 'b-quality', 'menu-theme': 'btn-theme',
+  'menu-speed': 'b-speed', 'menu-subs': 'b-subs', 'menu-audio': 'b-audio', 'menu-chap': 'b-chap', 'menu-quality': 'b-quality', 'menu-theme': 'btn-info',
 };
 function closeMenus(returnFocus = false) {
   for (const m of menus) {
@@ -354,14 +355,14 @@ function toggleMenu(id: string, build: (el: HTMLElement) => void) {
     build(el);
     el.hidden = false;
     $(MENU_OPENER[id])?.setAttribute('aria-expanded', 'true');
-    (el.querySelector('button:not(:disabled)') as HTMLElement | null)?.focus({ preventScroll: true });
+    (el.querySelector('button:not(:disabled), a[href]') as HTMLElement | null)?.focus({ preventScroll: true });
   }
 }
 // keyboard use of the menus: arrows, Home/End, Escape
 document.addEventListener('keydown', (e) => {
   const open = menus.map($).find((m) => !m.hidden);
   if (!open) return;
-  const items = [...open.querySelectorAll<HTMLElement>('button:not(:disabled)')];
+  const items = [...open.querySelectorAll<HTMLElement>('button:not(:disabled), a[href]')];
   const i = items.indexOf(document.activeElement as HTMLElement);
   if (e.key === 'Escape') {
     e.preventDefault();
@@ -683,7 +684,6 @@ lq?.setConsumer(async (params) => {
 });
 
 // ------------------------------------------------------------------- info
-$('btn-info').addEventListener('click', showInfo);
 function showInfo() {
   const cur = list.current;
   const i = player.info;
@@ -1339,75 +1339,18 @@ window.addEventListener('keydown', (e) => {
 // keep the track buttons right when the picture engine changes or a new file is loaded
 refreshTrackUI();
 
-// ======================================================================= themes
-const THEMES: Array<[typeof settings.theme, string]> = [
-  ['auto', 'Automatic (follow system)'],
-  ['dark', 'Dark'],
-  ['light', 'Light'],
-  ['oled', 'OLED black'],
-  ['contrast', 'High contrast'],
-];
-const ACCENTS: Array<[typeof settings.accent, string]> = [
-  ['orange', '#ff8a24'],
-  ['blue', '#4c9aff'],
-  ['green', '#35c27a'],
-  ['pink', '#ff5c9a'],
-  ['purple', '#a06bff'],
-];
-function applyTheme() {
-  const root = document.documentElement;
-  if (settings.theme === 'auto') root.removeAttribute('data-theme');
-  else root.dataset.theme = settings.theme;
-  if (settings.accent === 'orange') root.removeAttribute('data-accent');
-  else root.dataset.accent = settings.accent;
-  // keep the browser / installed-app chrome in the same colour as the top bar
-  requestAnimationFrame(() => {
-    const c = getComputedStyle(root).getPropertyValue('--panel').trim();
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', c || '#0f1115');
-  });
-}
-applyTheme();
-window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => settings.theme === 'auto' && applyTheme());
-setIcon('btn-theme', icons.palette);
-$('btn-theme').addEventListener('click', (e) => {
+// ======================================================================= (i) menu: details, colours, language, imprint
+applyTheme(settings);
+window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => settings.theme === 'auto' && applyTheme(settings));
+$('btn-info').addEventListener('click', (e) => {
   e.stopPropagation();
-  toggleMenu('menu-theme', buildThemeMenu);
-});
-function buildThemeMenu(el: HTMLElement) {
-  el.replaceChildren();
-  THEMES.forEach(([id, label]) =>
-    menuItem(el, label, settings.theme === id, () => {
-      settings.theme = id;
-      saveSettings(settings);
-      applyTheme();
-    }),
-  );
-  el.append(document.createElement('hr'));
-  const lab = document.createElement('div');
-  lab.className = 'label';
-  lab.textContent = 'Accent colour';
-  el.append(lab);
-  const row = document.createElement('div');
-  row.className = 'swatches';
-  ACCENTS.forEach(([id, color]) => {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.title = id;
-    b.setAttribute('aria-label', `Accent ${id}`);
-    b.setAttribute('role', 'menuitemradio');
-    b.setAttribute('aria-checked', String(settings.accent === id));
-    b.style.background = color;
-    b.addEventListener('click', (ev) => {
-      ev.stopPropagation();
-      settings.accent = id;
-      saveSettings(settings);
-      applyTheme();
-      row.querySelectorAll('button').forEach((x) => x.setAttribute('aria-checked', String(x === b)));
-    });
-    row.append(b);
+  toggleMenu('menu-theme', (el) => {
+    el.replaceChildren();
+    menuItem(el, 'Media information', null, showInfo);
+    el.append(document.createElement('hr'));
+    appendAboutSections(el, settings);
   });
-  el.append(row);
-}
+});
 menus.push('menu-theme');
 
 // ================================================================ mobile app (PWA)

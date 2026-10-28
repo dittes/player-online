@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-theme="oled">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -29,15 +29,14 @@
 <body>
 <div class="app" id="app">
   <header class="topbar">
-    <a class="brand" href="/de/"><img src="/icons/icon-192.png" alt="" width="24" height="24"><span>Player Online</span></a>
+    <a class="brand" href="/de/"><svg class="logo" viewBox="0 0 192 192" aria-hidden="true"><rect width="192" height="192" rx="42" fill="var(--panel-2)"/><path d="M57 46v100l85-50z" fill="var(--accent)"/></svg><span>Player Online</span></a>
     <div class="title" id="title"></div>
     <div class="top-actions">
       <button class="btn" id="btn-open" title="Open files (O)"></button>
       <button class="btn" id="btn-folder" title="Open folder"></button>
       <button class="btn" id="btn-url" title="Open a network address (U)"></button>
       <button class="btn" id="btn-install" title="Install this app" hidden></button>
-      <button class="btn" id="btn-theme" title="Theme" aria-haspopup="menu"></button>
-      <button class="btn" id="btn-info" title="Media information (I)"></button>
+      <button class="btn" id="btn-info" title="Info, colours, language" aria-haspopup="menu"></button>
       <button class="btn" id="btn-list" title="Playlist (Shift+L)"></button>
     </div>
   </header>
@@ -51,7 +50,7 @@
       <div class="spinner" id="spinner" hidden></div>
       <div class="empty" id="empty">
         <div class="empty-card">
-          <img src="/icons/icon-192.png" alt="" width="72" height="72">
+          <svg class="logo" viewBox="0 0 192 192" aria-hidden="true"><rect width="192" height="192" rx="42" fill="var(--panel-2)"/><path d="M57 46v100l85-50z" fill="var(--accent)"/></svg>
           <h1>Video online abspielen</h1>
           <p>Videodateien oder einen Ordner hierher ziehen oder vom Gerät öffnen. Alles wird direkt auf dieser Seite abgespielt – nichts wird hochgeladen.</p>
           <div class="empty-actions">
@@ -123,7 +122,7 @@
   </div>
 </div>
 
-<input type="file" id="file-input" multiple hidden accept="video/*,audio/*,.mkv,.avi,.wmv,.asf,.flv,.mpg,.mpeg,.vob,.ts,.m2ts,.mts,.wma,.srt,.vtt,.ass,.ssa">
+<input type="file" id="file-input" multiple hidden accept="video/*,audio/*,.mkv,.avi,.wmv,.asf,.flv,.mpg,.mpeg,.m1v,.m2v,.divx,.ogm,.mp2,.mpga,.m4r,.caf,.amr,.tta,.vob,.ts,.m2ts,.mts,.wma,.srt,.vtt,.ass,.ssa">
 <input type="file" id="dir-input" hidden webkitdirectory>
 <input type="file" id="sub-input" hidden accept=".srt,.vtt,.ass,.ssa">
 <div class="update-bar" id="update-bar" role="status" hidden><span>A new version is ready.</span> <button class="btn btn--primary" id="update-reload">Reload</button></div>

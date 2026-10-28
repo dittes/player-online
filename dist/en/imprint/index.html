@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="oled">
 <head>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; media-src 'self' blob: https: http:; connect-src 'self' blob: https: http:; font-src 'self'; worker-src 'self' blob:; manifest-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
   <meta charset="utf-8">
@@ -22,18 +22,23 @@
   <link rel="icon" type="image/png" href="/icons/icon-192.png">
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
   <meta name="robots" content="noindex, follow">
-  <link rel="stylesheet" crossorigin href="/assets/launcher-DpqsnV90.css">
+  <script type="module" crossorigin src="/assets/aboutmenu-CLce18jH.js"></script>
+  <script type="module" crossorigin src="/assets/page-D_ZTCMgS.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/page-CtI9wwIL.css">
 </head>
 <body>
 <div class="page">
   <header class="top">
-    <a class="brand" href="/en/"><img src="/icons/icon-192.png" alt="" width="32" height="32"><span>Player Online</span></a>
+    <a class="brand" href="/en/"><svg class="logo" viewBox="0 0 192 192" aria-hidden="true"><rect width="192" height="192" rx="42" fill="var(--panel-2)"/><path d="M57 46v100l85-50z" fill="var(--accent)"/></svg><span>Player Online</span></a>
+    <div class="menuwrap">
+      <button class="iconbtn" id="btn-about" type="button" aria-haspopup="menu" aria-expanded="false" title="Info, colours, language" aria-label="Info, colours, language"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg></button>
+      <div class="menu topmenu" id="menu-about" role="menu" hidden></div>
+    </div>
   </header>
   <main class="legal">
     <h1>Imprint</h1>
 <h2>Information pursuant to § 5 DDG (German Digital Services Act)</h2><address>Player-Online.com<br>c/o Andreas Dittes<br>Bautzener Str. 35<br>10829 Berlin<br>Germany</address>
 <h2>Contact</h2><p>Email: <a href="mailto:player-online@dittes.info">player-online@dittes.info</a></p>
-<h2>Responsible for content under § 18(2) MStV</h2><p>Andreas Dittes, address as above.</p>
 <h2>Consumer dispute resolution</h2><p>We are neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board.</p>
 <h2>Liability for content</h2><p>As a service provider we are responsible for our own content under general law (§ 7(1) DDG). Under §§ 8–10 DDG we are not obliged to monitor transmitted or stored third-party information. Once we become aware of an infringement we will remove the content promptly. Files you play are processed only by your browser; we do not receive them and have no knowledge of them.</p>
 <h2>Liability for links</h2><p>This site links to external third-party websites (e.g. biuno.com, open-online.com) whose content we cannot influence. We accept no liability for it; the respective provider is always responsible.</p>

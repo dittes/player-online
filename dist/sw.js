@@ -1,9 +1,9 @@
 /* Service worker: keeps the app (and, after first use, the built-in decoder) available offline.
  * It never sees the files you play: they are read by the page directly. */
 // Both lines below are filled in by the build (vite.config.ts): a version per release and the hashed app files.
-const CACHE = 'webplayer-vd7cc8618c0';
+const CACHE = 'webplayer-v867cda21cf';
 const SHELL = ['/', '/en/', '/en/video/', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/maskable-512.png'];
-const BUILT = ["/assets/launcher-5LoySZae.js","/assets/launcher-DpqsnV90.css","/assets/main-B54408GH.css","/assets/main-CSlvjkJP.js","/assets/modulepreload-polyfill-P2Xu9kJm.js"]; // hashed JS and CSS of this build
+const BUILT = ["/assets/aboutmenu-CLce18jH.js","/assets/launcher-Bje9BugQ.js","/assets/main-B6NBnd1q.css","/assets/main-BEx4eB6e.js","/assets/page-CtI9wwIL.css","/assets/page-D_ZTCMgS.js"]; // hashed JS and CSS of this build
 
 self.addEventListener('install', (event) => {
   // No skipWaiting here: the page offers "Reload" and tells us when to take over.

@@ -1,11 +1,11 @@
-import './launcher.css';
+import './page';
 
 /** The start page: whatever is dropped or opened is sent to the player that fits its type. Nothing is uploaded. */
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 const lang = document.documentElement.lang || 'en';
 
-const VIDEO = /\.(mp4|m4v|mov|qt|3gp|3g2|webm|mkv|avi|wmv|asf|flv|f4v|mpg|mpeg|mpe|vob|ts|m2ts|mts|m2t|ogv)$/i;
-const AUDIO = /\.(mp3|m4a|m4b|aac|flac|wav|ogg|oga|opus|wma|weba|mka|aiff?|ac3|dts)$/i;
+const VIDEO = /\.(mp4|m4v|mov|qt|3gp|3g2|webm|mkv|avi|wmv|asf|flv|f4v|mpg|mpeg|mpe|m1v|m2v|divx|vob|ts|m2ts|mts|m2t|ogv|ogm|ogx)$/i;
+const AUDIO = /\.(mp2|mp3|mpga|m4a|m4b|m4r|aac|flac|wav|ogg|oga|opus|spx|wma|weba|mka|aiff?|caf|amr|tta|ac3|dts)$/i;
 const SUBS = /\.(srt|vtt|ass|ssa)$/i;
 const DOCS = /\.(pdf|docx?|odt|rtf|txt|md|xlsx?|ods|csv|pptx?|odp|epub|pages|numbers|key)$/i;
 const GAMES = /\.(nes|smc|sfc|gb|gbc|gba|nds|n64|z64|v64|md|gen|smd|sms|gg|a26|a78|pce|swf|d64|adf|rom|iso|cue|cso|chd)$/i;

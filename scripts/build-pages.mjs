@@ -38,6 +38,9 @@ const ICONS = {
   docs: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8M8 9h2"/>',
 };
 
+const LOGO = '<svg class="logo" viewBox="0 0 192 192" aria-hidden="true"><rect width="192" height="192" rx="42" fill="var(--panel-2)"/><path d="M57 46v100l85-50z" fill="var(--accent)"/></svg>';
+const INFO_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg>';
+
 const footer = (l, t) => `<footer>
     <span>© Player-Online.com · ${esc(t.local)}</span>
     <a href="${pathOf(l, 'imprint')}">${esc(t.imprint)}</a>
@@ -45,7 +48,11 @@ const footer = (l, t) => `<footer>
   </footer>`;
 
 const top = (l, t) => `<header class="top">
-    <a class="brand" href="${pathOf(l)}"><img src="/icons/icon-192.png" alt="" width="32" height="32"><span>Player Online</span></a>
+    <a class="brand" href="${pathOf(l)}">${LOGO}<span>Player Online</span></a>
+    <div class="menuwrap">
+      <button class="iconbtn" id="btn-about" type="button" aria-haspopup="menu" aria-expanded="false" title="${esc(t.about_menu)}" aria-label="${esc(t.about_menu)}">${INFO_ICON}</button>
+      <div class="menu topmenu" id="menu-about" role="menu" hidden></div>
+    </div>
   </header>`;
 
 function launcher(l) {
@@ -53,7 +60,7 @@ function launcher(l) {
   const cat = (key, href, ext) =>
     `<a class="cat" href="${href}"${ext ? ' rel="noopener"' : ''}><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[key]}</svg>${esc(t.cats[key][0])}<small>${esc(t.cats[key][1])}</small></a>`;
   return `<!doctype html>
-<html lang="${l}">
+<html lang="${l}" data-theme="oled">
 <head>
   ${head(l, '', t.title, t.desc)}
 </head>
@@ -95,7 +102,7 @@ function imprint(l) {
   const t = T[l];
   const c = IMPRINT[l];
   return `<!doctype html>
-<html lang="${l}">
+<html lang="${l}" data-theme="oled">
 <head>
   ${head(l, 'imprint', c.title, t.desc)}
   <meta name="robots" content="noindex, follow">
@@ -108,7 +115,7 @@ function imprint(l) {
   </main>
   ${footer(l, t)}
 </div>
-<link rel="stylesheet" href="/src/launcher.css">
+<script type="module" src="/src/page.ts"></script>
 </body>
 </html>
 `;
@@ -120,6 +127,7 @@ function playerPage(l, kind) {
   const p = t[kind];
   const alts = alternates(kind);
   return player
+    .replaceAll('{{LOGO}}', LOGO)
     .replaceAll('{{LANG}}', l)
     .replaceAll('{{TITLE}}', esc(p.title))
     .replaceAll('{{DESC}}', esc(p.desc))
