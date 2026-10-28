@@ -1,0 +1,85 @@
+/* Service worker: keeps the app (and, after first use, the built-in decoder) available offline.
+ * It never sees the files you play: they are read by the page directly. */
+// Both lines below are filled in by the build (vite.config.ts): a version per release and the hashed app files.
+const CACHE = 'webplayer-v__VERSION__';
+const SHELL = ['/', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/maskable-512.png'];
+const BUILT = []; // hashed JS and CSS of this build
+
+self.addEventListener('install', (event) => {
+  // No skipWaiting here: the page offers "Reload" and tells us when to take over.
+  event.waitUntil(caches.open(CACHE).then((c) => c.addAll([...SHELL, ...BUILT])));
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches
+      .keys()
+      .then((keys) => Promise.all(keys.filter((k) => k.startsWith('webplayer-v') && k !== CACHE).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim()),
+  );
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data === 'SKIP_WAITING') self.skipWaiting();
+});
+
+// Files shared to the installed app from the system share sheet arrive as a POST; park them in a cache for the page.
+async function handleShare(request) {
+  const form = await request.formData();
+  const files = form.getAll('media').filter((f) => f instanceof File);
+  const cache = await caches.open('webplayer-share');
+  await Promise.all((await cache.keys()).map((k) => cache.delete(k)));
+  await Promise.all(
+    files.map((f, i) =>
+      cache.put(
+        '/shared/' + i,
+        new Response(f, { headers: { 'X-Name': encodeURIComponent(f.name), 'X-Modified': String(f.lastModified), 'Content-Type': f.type || 'application/octet-stream' } }),
+      ),
+    ),
+  );
+  return Response.redirect('/?shared=' + files.length, 303);
+}
+
+const immutable = (url) => url.pathname.startsWith('/assets/') || url.pathname.startsWith('/vendor/') || url.pathname.startsWith('/icons/');
+
+self.addEventListener('fetch', (event) => {
+  const req = event.request;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+  if (req.method === 'POST' && url.pathname === '/share-target') {
+    event.respondWith(handleShare(req));
+    return;
+  }
+  if (req.method !== 'GET') return;
+
+  if (req.mode === 'navigate') {
+    // Pages: network first, fall back to the cached shell when offline.
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put('/', copy));
+          return res;
+        })
+        .catch(() => caches.match('/')),
+    );
+    return;
+  }
+
+  if (immutable(url)) {
+    // Hashed or versioned files: cache first, remember what the network returns.
+    event.respondWith(
+      caches.match(req).then(
+        (hit) =>
+          hit ||
+          fetch(req).then((res) => {
+            if (res.ok) {
+              const copy = res.clone(); // clone before the page reads the body
+              caches.open(CACHE).then((c) => c.put(req, copy));
+            }
+            return res;
+          }),
+      ),
+    );
+  }
+});

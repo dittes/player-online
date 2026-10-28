@@ -1,0 +1,25 @@
+{
+  "name": "webplayer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A browser-based media player: native playback first, built-in FFmpeg (WebAssembly) fallback. Installable PWA.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "icons": "node scripts/make-icons.mjs",
+    "check": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  },
+  "dependencies": {
+    "dashjs": "^5.2.1",
+    "hls.js": "^1.7.3",
+    "libavjs-webcodecs-bridge": "^0.3.2"
+  }
+}

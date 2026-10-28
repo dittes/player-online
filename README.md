@@ -1,2 +1,124 @@
-# player-online
-Online Player - player-online.com
+# Web Player
+
+A media player that runs entirely in the browser and installs as an app (PWA). Open or drop video and audio
+files and they play on your device — nothing is uploaded, there is no server component.
+
+It is a web-native player that borrows the *architecture* of VLC (access → demux → decode → output, audio-driven
+clock), not its code. The decoding fallback is FFmpeg compiled to WebAssembly (libav.js).
+
+## How a file gets played
+
+| Engine | When | What does the work |
+|---|---|---|
+| **Browser** | MP4, WebM, MOV, most MKV, MP3, FLAC, WAV, OGG, M4A … | the browser's own `<video>` (hardware decoding) |
+| **Browser + built-in sound** | the picture is fine but the sound codec isn't (AC-3, DTS, WMA in MKV/MP4), or you pick another audio track | `<video>` plays muted, the built-in engine decodes the audio and keeps in sync with it |
+| **Built-in** | AVI, WMV/ASF, FLV, MPEG/VOB, MPEG-TS, WMA, or anything the browser rejects | FFmpeg (WebAssembly) opens the container; frames go to a canvas, sound to Web Audio. **Who decodes:** H.264, HEVC, VP8/9, AV1, AAC, Opus, Vorbis by the *browser* (WebCodecs, hardware where available); older codecs (MPEG-1/2/4, WMV, VC-1, Sorenson, AC-3, E-AC-3, DTS, MP2/MP3, WMA) by the built-in WebAssembly decoders |
+
+**No H.264 or AAC decoder is shipped.** Those codecs are decoded by the visitor's browser, which carries its vendor's licence; the app's own
+WebAssembly build contains no decoder for them (see `NOTICE.md`). The trade-off: H.264/HEVC/AAC inside AVI, FLV, TS … need a browser with WebCodecs
+(recent Chrome, Edge, Safari 16.4+, Firefox 130+); elsewhere the player says so instead of playing.
+
+The choice is made per file (`src/engine/player.ts`) and shown under **Info → Played by**.
+
+## Features
+
+**Opening:** files, a whole folder, drag-and-drop of files and folders, paste or open a web address (direct file, HLS `.m3u8`,
+DASH `.mpd`), `?url=` links, and "Open with…" when installed.
+
+**Playback:** playlist (queue, drag to reorder, shuffle, repeat, natural order), resume where you stopped, volume to 200 %, speed 0.25–3×
+(browser engine), A–B loop, frame step, snapshot (keeps your colour adjustments), picture-in-picture, full screen, Chromecast / AirPlay
+(browser engine, where the browser supports it), live streams, Media Session (lock screen, media keys) and screen wake lock.
+
+**Tracks:** audio-track switching (also for files whose browser-undecodable tracks the built-in decoder plays), embedded text subtitles
+(SRT, ASS/SSA, WebVTT, mov_text are read out of MKV/MP4/…), external subtitles (SRT, VTT, ASS; auto-attached by name; encoding detection;
+delay ±0.1 s), chapters (menu and PageUp/PageDown), bookmarks, HLS quality levels.
+
+**Audio effects** (panel *E*): 10-band equalizer with presets, preamp, night mode (loudness compressor), mono, balance; a spectrum
+visualizer for audio files. Works for all three engines.
+
+**Video effects:** brightness, contrast, saturation, hue, gamma, sharpen, black and white, invert, rotate, flip, zoom with drag-to-pan,
+and aspect ratio (original, fill, stretch, 16:9, 16:10, 4:3, 5:4, 21:9, 1:1). Applied with CSS/SVG filters, so it costs the GPU very little.
+
+**Keyboard:** Space/K play · ←/→ ±5 s (Shift ±30) · J/L ±10 s · ↑/↓ and mouse wheel volume · M mute · F full screen · C subtitles ·
+T audio track · V aspect · E effects · B bookmark · S snapshot · A loop A–B · [ ] speed · , . frame step · PageUp/PageDown chapters ·
+0–9 jump to 0–90 % · N/P next/previous · O open · U web address · I info · Shift+L playlist · Ctrl+wheel zoom.
+
+**Touch:** double-tap left/right = ∓10 s, double-tap centre = full screen, tap shows/hides controls.
+
+**Themes:** Automatic (follows the system), Dark, Light, OLED black and High contrast, plus five accent colours (palette button in the top bar).
+
+**Mobile app (PWA):** installable on Android (Install button / browser prompt) and iPhone/iPad (Add to Home Screen, with an in-app hint); works offline after one visit
+(app, and the built-in decoder once it has been used); receives videos from the system **Share** sheet (Android); "Open with…" file handler on desktop;
+home-screen shortcut "Open a web address"; update bar ("A new version is ready · Reload"); safe-area aware for notches; landscape lock in full screen;
+full-screen fallback for iPhone Safari (which has no Fullscreen API for elements); touch gestures: swipe sideways = seek, swipe up/down on the right = volume,
+on the left = picture brightness, hold = 2× speed, double-tap = ∓10 s / full screen; 44 px touch targets.
+
+## Performance (built-in engine)
+
+Measured in Chromium on an Apple-silicon laptop with demanding synthetic 10 s clips (Mandelbrot, 8 Mbit/s): 1080p H.264 in FLV, decoded by the browser, played in real
+time with 0 dropped frames (300/300); with the old WebAssembly H.264 decoder the same clip needed the CPU. H.264/HEVC in transport streams and AVI, seeking,
+and ADTS audio were checked too. Older codecs still use the WebAssembly decoders: 1080p MPEG-4 (AVI) also played in real time on this machine. Real films, 10-bit video, older laptops and especially phones will be
+slower; the player shows a notice when it has to skip frames. Browser-native playback (MP4, WebM, most MKV) uses hardware decoding and is unaffected.
+
+## Run
+
+```bash
+npm install
+npm run dev        # http://localhost:5174
+npm run build      # type-check + production build into dist/
+npm run preview    # http://localhost:4174 (sends the real security headers)
+npm test           # unit tests (subtitles, playlist)
+```
+
+Needs a secure context (HTTPS or localhost) for the service worker and install.
+
+## Deploy
+
+`npm run build` writes a static site to `dist/`. The build embeds a strict Content-Security-Policy in `index.html` and writes a `_headers` file (Netlify,
+Cloudflare Pages) with the same policy and caching rules. Any static host works; it must serve over HTTPS for the service worker and install.
+
+- **GitHub Pages:** `.github/workflows/pages.yml` builds and publishes on every push to `main` (enable Pages → "GitHub Actions" in the repo settings).
+- **Netlify / Cloudflare Pages:** publish `dist/`; `_headers` is picked up automatically.
+- Do **not** add cross-origin isolation headers (COOP/COEP) unless you also build the threaded decoder: they break playing streams from other sites.
+- The policy lets media and fetch requests reach any `http(s)` address because "open a web address" needs it; tighten `connect-src`/`media-src` in
+  `vite.config.ts` if you only want files.
+
+Third-party licences and the patent note are in `NOTICE.md`.
+
+## Layout
+
+```
+src/engine/softmedia.ts   FFmpeg-in-WebAssembly engine (demux/decode, canvas, Web Audio, audio-master clock)
+src/engine/player.ts      one API over the engines (browser, browser + built-in sound, built-in, HLS/DASH)
+src/engine/probe.ts       track list, chapters, embedded subtitle extraction (FFmpeg/WebAssembly)
+src/engine/fx.ts          audio effects chain (EQ, night mode, mono, balance, analyser)
+src/engine/vfx.ts         video adjustments (CSS/SVG filters, aspect, zoom, rotate)
+src/playlist.ts           queue, shuffle, repeat
+src/subtitles.ts          SRT/VTT/ASS parsing and cue lookup
+src/store.ts              resume positions (IndexedDB) and settings (localStorage)
+src/main.ts               UI wiring, hotkeys, gestures, Media Session
+public/vendor/libav/      custom libav.js build (rebuild notes in scripts/libav-README.md)
+public/sw.js, manifest    PWA
+```
+
+Privacy: only the file name, size, date and last position are remembered (in this browser). Files are never sent anywhere.
+
+## Limits
+
+- In the built-in engine, browser-decoded codecs (H.264, HEVC, AAC …) run on the hardware decoder; the older codecs use single-threaded CPU decoding,
+  so large or high-bitrate files in those (DivX, WMV, MPEG-2) may skip frames. Missing: VP6, WMA Pro/Lossless; no DRM. Speed, picture-in-picture and cast
+  aren't available there. A threaded build (2–4× faster) needs cross-origin isolation headers and is not included.
+- Embedded subtitles are text only (image subtitles such as PGS and VobSub are listed but can't be shown). Extracting them reads the whole
+  file once, which takes a while for multi-gigabyte files. No deinterlacing for the built-in engine (browsers deinterlace their own playback).
+- Web addresses: adaptive streams (HLS/DASH) need the server to send CORS headers; the built-in engine only plays local files, so a network
+  address in AVI/WMV/… can't be played. Direct files in browser-supported formats work without CORS.
+- Sound re-routing for AC-3/DTS: on Chromium/WebKit silence is detected while playing; in other browsers the track list from the probe is used
+  (needs one extra 4 MB download of the decoder). Tested in Chromium only.
+- Tested in Chromium (desktop, emulated phone) and real Chrome (service worker, offline, update flow, install eligibility). Not tested: Firefox, Safari, real phones, the OS share sheet and file association after a real install, files above 1080p.
+- Patents: H.264, HEVC and AAC are decoded by the browser, the app ships no decoder for them. Its WebAssembly build still has older decoders (MPEG-1/2/4, WMV, WMA, AC-3, DTS …); see NOTICE.md.
+- "Web Player" is a placeholder name (do not use "VLC", it is VideoLAN's trademark).
+
+## Ideas not built
+
+Equalizer for network streams' per-track routing, video recording/conversion, visual playlists with thumbnails, subtitle search, 3D/anaglyph
+modes, DVD/Blu-ray (needs optical drive access, not possible in a browser), network protocols such as RTSP/UDP/SMB (need a gateway server).
