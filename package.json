@@ -1,16 +1,17 @@
 {
-  "name": "webplayer",
+  "name": "player-online",
   "version": "0.1.0",
   "private": true,
-  "description": "A browser-based media player: native playback first, built-in FFmpeg (WebAssembly) fallback. Installable PWA.",
+  "description": "Player Online: play video and music in the browser, with a launcher that routes files to the right player (video, music, games, documents). Installable PWA.",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "node scripts/build-pages.mjs && tsc --noEmit && vite build",
     "preview": "vite preview",
     "icons": "node scripts/make-icons.mjs",
     "check": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "pages": "node scripts/build-pages.mjs"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

@@ -1,5 +1,5 @@
 import { defineConfig, type Plugin } from 'vite';
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 
@@ -46,7 +46,9 @@ function deploy(): Plugin {
         ...Object.entries(HEADERS).map(([k, v]) => `  ${k}: ${v}`),
         '/sw.js',
         '  Cache-Control: no-cache',
-        '/index.html',
+        '/*.html',
+        '  Cache-Control: no-cache',
+        '/*/',
         '  Cache-Control: no-cache',
         '/manifest.webmanifest',
         '  Content-Type: application/manifest+json',
@@ -81,9 +83,16 @@ function serviceWorkerManifest(): Plugin {
   };
 }
 
+/** Every generated page (see scripts/build-pages.mjs): the root redirect plus launcher, video, music and imprint per language. */
+const PAGES = Object.fromEntries(
+  ['index.html', ...['en', 'de', 'pl', 'cs'].flatMap((l) => ['', 'video/', 'music/', 'imprint/'].map((p) => `${l}/${p}index.html`))]
+    .filter((f) => existsSync(f))
+    .map((f) => [f.replace(/\/?index\.html$/, '') || 'index', f]),
+);
+
 export default defineConfig({
   plugins: [deploy(), serviceWorkerManifest()],
-  build: { target: 'es2022', assetsInlineLimit: 0, sourcemap: false, chunkSizeWarningLimit: 900 },
+  build: { rollupOptions: { input: PAGES }, target: 'es2022', assetsInlineLimit: 0, sourcemap: false, chunkSizeWarningLimit: 900 },
   server: { port: 5174 },
   // Preview serves the real headers so the policy can be checked locally.
   preview: { port: 4174, headers: HEADERS },

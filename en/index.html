@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Player Online – Play Video, Music, Games and Documents Online</title>
+  <meta name="description" content="Play almost any video or music file in your browser: MP4, MKV, AVI, MP3, FLAC and more. Drop a file or folder and the right player opens. Nothing is uploaded.">
+  <link rel="canonical" href="https://player-online.com/en/">
+  <link rel="alternate" hreflang="en" href="https://player-online.com/en/">
+  <link rel="alternate" hreflang="de" href="https://player-online.com/de/">
+  <link rel="alternate" hreflang="pl" href="https://player-online.com/pl/">
+  <link rel="alternate" hreflang="cs" href="https://player-online.com/cs/">
+  <link rel="alternate" hreflang="x-default" href="https://player-online.com/en/">
+  <meta property="og:title" content="Player Online – Play Video, Music, Games and Documents Online">
+  <meta property="og:description" content="Play almost any video or music file in your browser: MP4, MKV, AVI, MP3, FLAC and more. Drop a file or folder and the right player opens. Nothing is uploaded.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://player-online.com/en/">
+  <meta name="theme-color" content="#0f1115">
+  <meta name="color-scheme" content="dark light">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <a class="brand" href="/en/"><img src="/icons/icon-192.png" alt="" width="32" height="32"><span>Player Online</span></a>
+  </header>
+  <main>
+    <h1>Play anything online</h1>
+    <p class="lead">Drop a file or a whole folder and the right player opens – for video, music, games or documents. Everything runs in your browser; nothing is uploaded.</p>
+    <nav class="cats" aria-label="Play Video, Music, Games and Documents Online">
+      <a class="cat" href="/en/video/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h11a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zM17 10l5-3v10l-5-3"/></svg>Video<small>Play Video Online</small></a>
+      <a class="cat" href="/en/music/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Music<small>Play Music Online</small></a>
+      <a class="cat" href="https://biuno.com" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.3 5H6.7a4 4 0 0 0-3.9 3.1L1.5 15a3 3 0 0 0 5.2 2.2L8 16h8l1.3 1.2A3 3 0 0 0 22.5 15l-1.3-6.9A4 4 0 0 0 17.3 5z"/></svg>Games<small>Play Games Online</small></a>
+      <a class="cat" href="https://open-online.com" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8M8 9h2"/></svg>Documents<small>Play Documents Online</small></a>
+    </nav>
+    <section class="drop" id="drop">
+      <p class="big">Drop files or a folder here</p>
+      <p>or choose them from your device</p>
+      <div class="actions">
+        <button class="btn btn--primary" id="open-file" type="button">Open file</button>
+        <button class="btn" id="open-folder" type="button">Open folder</button>
+      </div>
+    </section>
+    <div class="msg" id="msg" role="status" hidden></div>
+    <section class="about"><h2>Free online player – no upload, no account</h2><p>Player Online plays MP4, WebM, MKV, MOV, AVI, WMV, FLV, MPEG, MP3, FLAC, WAV, OGG, M4A and many more formats directly in your browser, including subtitles, playlists, an equalizer and network streams (HLS, DASH). Your files stay on your device.</p></section>
+  </main>
+  <footer>
+    <span>© Player-Online.com · Your files never leave your device.</span>
+    <a href="/en/imprint/">Imprint &amp; privacy</a>
+    <nav class="langs" aria-label="Language"><a href="/en/" hreflang="en" lang="en" aria-current="page">English</a><a href="/de/" hreflang="de" lang="de">Deutsch</a><a href="/pl/" hreflang="pl" lang="pl">Polski</a><a href="/cs/" hreflang="cs" lang="cs">Čeština</a></nav>
+  </footer>
+</div>
+<div id="texts" hidden data-doc="This looks like a document. Documents open on our sister site open-online.com – please open the file there." data-doc-link="Go to open-online.com" data-game="This looks like a game file. Games run on our sister site biuno.com – please open the file there." data-game-link="Go to biuno.com" data-other="This file type is not supported here. Try a video or audio file."></div>
+<input type="file" id="file-input" multiple hidden>
+<input type="file" id="dir-input" hidden webkitdirectory>
+<script type="module" src="/src/launcher.ts"></script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 import './style.css';
+import './i18n';
 import { icons } from './ui/icons';
 import { Player, type Engine } from './engine/player';
 import { Playlist, itemKey } from './playlist';
@@ -11,6 +12,7 @@ import { getBookmarks, getResume, loadSettings, saveResume, saveSettings, setBoo
 // ------------------------------------------------------------------ helpers
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 const app = $('app');
+const originalTitle = document.title;
 const stage = $('stage');
 
 const fmt = (t: number) => {
@@ -144,7 +146,7 @@ async function playIndex(i: number) {
   $('empty').hidden = true;
   $('spinner').hidden = false;
   $('title').textContent = item.name;
-  document.title = `${baseName(item.name)} – Web Player`;
+  document.title = `${baseName(item.name)} – Player Online`;
   loop = { a: null, b: null };
   updateAB();
   lastCueKey = '';
@@ -567,7 +569,7 @@ function stopAll() {
   $('empty').hidden = false;
   $('audioart').hidden = true;
   $('title').textContent = '';
-  document.title = 'Web Player';
+  document.title = originalTitle;
   renderCueText($('subs'), []);
 }
 
@@ -1452,7 +1454,7 @@ if (isIos) {
 // files shared to the app from the system share sheet (see the service worker)
 async function takeSharedFiles() {
   if (!new URLSearchParams(location.search).has('shared')) return;
-  history.replaceState(null, '', '/');
+  history.replaceState(null, '', location.pathname);
   try {
     const cache = await caches.open('webplayer-share');
     const files: File[] = [];
@@ -1469,7 +1471,7 @@ async function takeSharedFiles() {
 }
 void takeSharedFiles();
 if (new URLSearchParams(location.search).get('dialog') === 'url') {
-  history.replaceState(null, '', '/');
+  history.replaceState(null, '', location.pathname);
   openUrlDialog();
 }
 

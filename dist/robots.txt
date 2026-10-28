@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://player-online.com/sitemap.xml

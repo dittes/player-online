@@ -2,7 +2,7 @@
  * It never sees the files you play: they are read by the page directly. */
 // Both lines below are filled in by the build (vite.config.ts): a version per release and the hashed app files.
 const CACHE = 'webplayer-v__VERSION__';
-const SHELL = ['/', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/maskable-512.png'];
+const SHELL = ['/', '/en/', '/en/video/', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/maskable-512.png'];
 const BUILT = []; // hashed JS and CSS of this build
 
 self.addEventListener('install', (event) => {
@@ -37,7 +37,10 @@ async function handleShare(request) {
       ),
     ),
   );
-  return Response.redirect('/?shared=' + files.length, 303);
+  // Open the player page in the visitor's language.
+  const l = (request.headers.get('accept-language') || '').slice(0, 2).toLowerCase();
+  const lang = ['de', 'pl', 'cs'].includes(l) ? l : 'en';
+  return Response.redirect(`/${lang}/video/?shared=${files.length}`, 303);
 }
 
 const immutable = (url) => url.pathname.startsWith('/assets/') || url.pathname.startsWith('/vendor/') || url.pathname.startsWith('/icons/');
@@ -58,10 +61,10 @@ self.addEventListener('fetch', (event) => {
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put('/', copy));
+          caches.open(CACHE).then((c) => c.put(req, copy));
           return res;
         })
-        .catch(() => caches.match('/')),
+        .catch(() => caches.match(req).then((hit) => hit || caches.match('/en/video/'))),
     );
     return;
   }

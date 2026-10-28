@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; media-src 'self' blob: https: http:; connect-src 'self' blob: https: http:; font-src 'self'; worker-src 'self' blob:; manifest-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Play Video Online – Player Online</title>
+  <meta name="description" content="Play video online for free: MP4, MKV, AVI, MOV, WMV, FLV and more, with subtitles and playlists. No upload, no account – your file stays on your device.">
+  <link rel="canonical" href="https://player-online.com/en/video/">
+  <link rel="alternate" hreflang="en" href="https://player-online.com/en/video/">
+  <link rel="alternate" hreflang="de" href="https://player-online.com/de/video/">
+  <link rel="alternate" hreflang="pl" href="https://player-online.com/pl/video/">
+  <link rel="alternate" hreflang="cs" href="https://player-online.com/cs/video/">
+  <link rel="alternate" hreflang="x-default" href="https://player-online.com/en/video/">
+  <meta property="og:title" content="Play Video Online – Player Online">
+  <meta property="og:description" content="Play video online for free: MP4, MKV, AVI, MOV, WMV, FLV and more, with subtitles and playlists. No upload, no account – your file stays on your device.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://player-online.com/en/video/">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0f1115">
+  <meta name="apple-mobile-web-app-title" content="Player Online">
+  <meta name="color-scheme" content="dark light">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <script type="module" crossorigin src="/assets/modulepreload-polyfill-P2Xu9kJm.js"></script>
+  <script type="module" crossorigin src="/assets/main-CSlvjkJP.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-B54408GH.css">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <a class="brand" href="/en/"><img src="/icons/icon-192.png" alt="" width="24" height="24"><span>Player Online</span></a>
+    <div class="title" id="title"></div>
+    <div class="top-actions">
+      <button class="btn" id="btn-open" title="Open files (O)"></button>
+      <button class="btn" id="btn-folder" title="Open folder"></button>
+      <button class="btn" id="btn-url" title="Open a network address (U)"></button>
+      <button class="btn" id="btn-install" title="Install this app" hidden></button>
+      <button class="btn" id="btn-theme" title="Theme" aria-haspopup="menu"></button>
+      <button class="btn" id="btn-info" title="Media information (I)"></button>
+      <button class="btn" id="btn-list" title="Playlist (Shift+L)"></button>
+    </div>
+  </header>
+
+  <div class="menu topmenu" id="menu-theme" role="menu" hidden></div>
+  <div class="main">
+    <section class="stage" id="stage" tabindex="0" aria-label="Player">
+      <div class="audioart" id="audioart" hidden><canvas class="viz" id="viz" width="640" height="160"></canvas><div class="art"></div><div class="name" id="audioname"></div></div>
+      <div class="subs" id="subs" aria-live="off"></div>
+      <div class="osd" id="osd" aria-live="polite"></div>
+      <div class="spinner" id="spinner" hidden></div>
+      <div class="empty" id="empty">
+        <div class="empty-card">
+          <img src="/icons/icon-192.png" alt="" width="72" height="72">
+          <h1>Play Video Online</h1>
+          <p>Drop video files or a folder here, or open them from your device. Everything plays inside this page – nothing is uploaded.</p>
+          <div class="empty-actions">
+            <button class="btn btn--primary" id="empty-open"></button>
+            <button class="btn" id="empty-folder"></button>
+          </div>
+          <p class="ios-hint" id="ios-hint" hidden><span>Install on iPhone or iPad: tap <b>Share</b>, then <b>Add to Home Screen</b>.</span> <button class="btn" id="ios-hint-close">Got it</button></p>
+          <p class="hint">MP4, WebM, MKV, MOV, AVI, WMV, FLV, MPEG, TS, MP3, FLAC, WAV, OGG, M4A, WMA and more</p>
+        </div>
+      </div>
+      <div class="controls" id="controls">
+        <div class="seekrow">
+          <span class="time" id="t-cur">0:00</span>
+          <input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="Seek">
+          <span class="time" id="t-dur">0:00</span>
+        </div>
+        <div class="btnrow">
+          <div class="group">
+            <button class="icon" id="b-prev" title="Previous (P)"></button>
+            <button class="icon icon--big" id="b-play" title="Play / pause (Space)"></button>
+            <button class="icon" id="b-next" title="Next (N)"></button>
+            <button class="icon" id="b-mute" title="Mute (M)"></button>
+            <input type="range" id="vol" min="0" max="200" value="100" step="5" aria-label="Volume">
+            <span class="volval" id="volval">100%</span>
+          </div>
+          <div class="group">
+            <button class="icon txt" id="b-ab" title="Loop A–B (A)">A–B</button>
+            <div class="menuwrap"><button class="icon" id="b-chap" title="Chapters and bookmarks (B adds a bookmark)" hidden></button><div class="menu" id="menu-chap" hidden></div></div>
+            <div class="menuwrap"><button class="icon" id="b-audio" title="Audio track (T)" hidden></button><div class="menu" id="menu-audio" hidden></div></div>
+            <div class="menuwrap"><button class="icon" id="b-speed" title="Speed ([ and ])"></button><div class="menu" id="menu-speed" hidden></div></div>
+            <div class="menuwrap"><button class="icon" id="b-subs" title="Subtitles (C)"></button><div class="menu" id="menu-subs" hidden></div></div>
+            <div class="menuwrap"><button class="icon txt" id="b-quality" title="Stream quality" hidden>HD</button><div class="menu" id="menu-quality" hidden></div></div>
+            <button class="icon" id="b-snap" title="Snapshot (S)"></button>
+            <button class="icon" id="b-cast" title="Cast / AirPlay" hidden></button>
+            <button class="icon" id="b-pip" title="Picture in picture"></button>
+            <button class="icon" id="b-fx" title="Audio and video effects (E)"></button>
+            <button class="icon" id="b-full" title="Full screen (F)"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="playlist fxpanel" id="fxpanel" aria-label="Effects">
+      <div class="pl-head">
+        <span class="tabs" role="tablist">
+          <button role="tab" id="tab-audio" aria-selected="true">Audio</button>
+          <button role="tab" id="tab-video" aria-selected="false">Video</button>
+        </span>
+        <button class="icon" id="fx-close" title="Close"></button>
+      </div>
+      <div class="fx-body" id="fx-audio"></div>
+      <div class="fx-body" id="fx-video" hidden></div>
+    </aside>
+
+    <aside class="playlist" id="playlist" aria-label="Playlist">
+      <div class="pl-head">
+        <strong>Playlist</strong>
+        <span class="pl-actions">
+          <button class="icon" id="pl-shuffle" title="Shuffle"></button>
+          <button class="icon" id="pl-repeat" title="Repeat"></button>
+          <button class="icon" id="pl-add" title="Add files"></button>
+          <button class="icon" id="pl-clear" title="Clear playlist"></button>
+          <button class="icon pl-close" id="pl-close" title="Close"></button>
+        </span>
+      </div>
+      <ol id="list"></ol>
+      <p class="pl-empty" id="pl-empty">Nothing queued yet.</p>
+    </aside>
+  </div>
+</div>
+
+<input type="file" id="file-input" multiple hidden accept="video/*,audio/*,.mkv,.avi,.wmv,.asf,.flv,.mpg,.mpeg,.vob,.ts,.m2ts,.mts,.wma,.srt,.vtt,.ass,.ssa">
+<input type="file" id="dir-input" hidden webkitdirectory>
+<input type="file" id="sub-input" hidden accept=".srt,.vtt,.ass,.ssa">
+<div class="update-bar" id="update-bar" role="status" hidden><span>A new version is ready.</span> <button class="btn btn--primary" id="update-reload">Reload</button></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="url-dialog"><form method="dialog" id="url-form"><h2>Open a network address</h2>
+  <p class="note">A direct link to a video or audio file, an HLS playlist (.m3u8) or a DASH manifest (.mpd). The server must allow other websites to read it (CORS) for adaptive streams.</p>
+  <input type="url" id="url-input" placeholder="https://example.com/video.mp4" required autocomplete="off" spellcheck="false">
+  <div class="dlg-actions"><button class="btn btn--primary" value="play">Play</button><button class="btn" value="cancel" formnovalidate>Cancel</button></div></form></dialog>
+<dialog id="info"><form method="dialog"><h2>Media information</h2><dl id="info-body"></dl><button class="btn">Close</button></form></dialog>
+<footer class="sr-only">Play video online: MP4, WebM, MKV, MOV, AVI, WMV, FLV, MPEG and TS files play in your browser with subtitles (SRT, ASS, VTT), audio track selection, playlists and picture-in-picture. Free, without upload.</footer>
+</body>
+</html>

@@ -1,7 +1,7 @@
 {
-  "name": "Web Player",
-  "short_name": "Web Player",
-  "description": "Play almost any video or audio file in your browser. Nothing is uploaded.",
+  "name": "Player Online",
+  "short_name": "Player Online",
+  "description": "Play video, music, games and documents online. Nothing is uploaded.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
@@ -42,7 +42,7 @@
   },
   "file_handlers": [
     {
-      "action": "/",
+      "action": "/en/video/",
       "accept": {
         "video/mp4": [
           ".mp4",
@@ -116,7 +116,7 @@
       "name": "Open a web address",
       "short_name": "Web address",
       "description": "Play a video or stream from a link",
-      "url": "/?dialog=url",
+      "url": "/en/video/?dialog=url",
       "icons": [
         {
           "src": "/icons/icon-192.png",
